@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PORoundsViewController : UIViewController
+@interface PORoundsViewController : UIViewController <UITableViewDelegate>
 
 @end

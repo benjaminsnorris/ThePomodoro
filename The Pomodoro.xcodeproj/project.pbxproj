@@ -121,14 +121,14 @@
 			children = (
 				7141B2F4193DBDFD0084F9F1 /* POAppDelegate.h */,
 				7141B2F5193DBDFD0084F9F1 /* POAppDelegate.m */,
-				E70D6B6419D258BD00F8263C /* POTimerViewController.h */,
-				E70D6B6519D258BD00F8263C /* POTimerViewController.m */,
 				E70D6B6719D258F600F8263C /* PORoundsViewController.h */,
 				E70D6B6819D258F600F8263C /* PORoundsViewController.m */,
 				E70D6B6A19D2590800F8263C /* PORoundsDataSource.h */,
 				E70D6B6B19D2590800F8263C /* PORoundsDataSource.m */,
 				E70D6B6D19D2681A00F8263C /* POTimer.h */,
 				E70D6B6E19D2681A00F8263C /* POTimer.m */,
+				E70D6B6419D258BD00F8263C /* POTimerViewController.h */,
+				E70D6B6519D258BD00F8263C /* POTimerViewController.m */,
 				7141B2F7193DBDFD0084F9F1 /* Images.xcassets */,
 				7141B2EC193DBDFD0084F9F1 /* Supporting Files */,
 			);

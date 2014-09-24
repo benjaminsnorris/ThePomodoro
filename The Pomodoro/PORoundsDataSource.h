@@ -8,6 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PORoundsDataSource : NSObject
+@interface PORoundsDataSource : NSObject <UITableViewDataSource>
 
 @end

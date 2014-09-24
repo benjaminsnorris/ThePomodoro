@@ -7,8 +7,12 @@
 //
 
 #import "PORoundsViewController.h"
+#import "PORoundsDataSource.h"
 
 @interface PORoundsViewController ()
+
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) PORoundsDataSource *dataSource;
 
 @end
 
@@ -17,8 +21,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
     self.title = @"Rounds";
+
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain];
+    self.tableView.delegate = self;
+    self.dataSource = [PORoundsDataSource new];
+    self.tableView.dataSource = self.dataSource;
+    
+    [self.view addSubview:self.tableView];
 }
 
 - (void)didReceiveMemoryWarning {
