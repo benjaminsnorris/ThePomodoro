@@ -10,23 +10,35 @@
 #import "POTimerViewController.h"
 #import "PORoundsViewController.h"
 
+
 @implementation POAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
     
-    UITabBarController *tabBarController = [UITabBarController new];
+    PORoundsViewController *historyViewController = [PORoundsViewController new];
+    historyViewController.tabBarItem.title = @"Rounds";
+    historyViewController.tabBarItem.image = [UIImage imageNamed:@"rounds"];
+
     POTimerViewController *timerViewController = [POTimerViewController new];
     timerViewController.tabBarItem.title = @"Timer";
-    PORoundsViewController *roundsViewController = [PORoundsViewController new];
-    roundsViewController.tabBarItem.title = @"Rounds";
+    timerViewController.tabBarItem.image = [UIImage imageNamed:@"timer"];
+
+    UITabBarController *tabBarController = [UITabBarController new];
+    tabBarController.viewControllers = @[[[UINavigationController alloc] initWithRootViewController:historyViewController], [[UINavigationController alloc] initWithRootViewController:timerViewController]];
     
-    tabBarController.viewControllers = @[timerViewController, roundsViewController];
-    
+    [[UINavigationBar appearance] setBarTintColor:[UIColor redColor]];
+    [[UITabBar appearance] setTintColor:[UIColor redColor]];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{
+                                                           NSForegroundColorAttributeName: [UIColor whiteColor],
+                                                           NSFontAttributeName: [UIFont fontWithName:@"Avenir-Light" size:20]
+                                                           }];
+        
     self.window.rootViewController = tabBarController;
     
+    // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
