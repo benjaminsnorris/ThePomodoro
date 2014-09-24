@@ -19,14 +19,23 @@
     
     UITabBarController *tabBarController = [UITabBarController new];
     tabBarController.tabBar.tintColor = [UIColor redColor];
+    
     PORoundsViewController *roundsViewController = [PORoundsViewController new];
     roundsViewController.tabBarItem.title = @"Rounds";
     roundsViewController.tabBarItem.image = [UIImage imageNamed:@"rounds"];
+    UINavigationController *roundsNavController = [[UINavigationController alloc] initWithRootViewController:roundsViewController];
+    [roundsNavController.navigationBar setBarTintColor:[UIColor redColor]];
+    roundsNavController.navigationBar.translucent = NO;
+    
     POTimerViewController *timerViewController = [POTimerViewController new];
     timerViewController.tabBarItem.title = @"Timer";
     timerViewController.tabBarItem.image = [UIImage imageNamed:@"clock"];
- 
-    tabBarController.viewControllers = @[roundsViewController, timerViewController];
+    UINavigationController *timerNavController =[[UINavigationController alloc] initWithRootViewController:timerViewController];
+    [timerNavController.navigationBar setBarTintColor:[UIColor redColor]];
+    timerNavController.navigationBar.translucent = NO;
+
+//    tabBarController.viewControllers = @[roundsNavController, timerNavController];
+    tabBarController.viewControllers = @[timerNavController, roundsNavController];
     
     self.window.rootViewController = tabBarController;
     

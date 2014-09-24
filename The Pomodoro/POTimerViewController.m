@@ -7,18 +7,74 @@
 //
 
 #import "POTimerViewController.h"
+#import "POTimer.h"
+
+#define margin 15
 
 @interface POTimerViewController ()
+
+@property (nonatomic, strong) UILabel *timeLabel;
+@property (nonatomic, strong) UIButton *timerButton;
 
 @end
 
 @implementation POTimerViewController
+
+- (id)init {
+    self = [super init];
+    
+    if (self) {
+        [self registerForNotifications];
+    }
+
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
     self.title = @"Timer";
+    self.view.backgroundColor = [UIColor redColor];
+    
+    self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(margin, 100, self.view.bounds.size.width - (margin * 2), 100)];
+    self.timeLabel.textColor = [UIColor whiteColor];
+    self.timeLabel.font = [UIFont fontWithName:@"Avenir Next" size:100];
+    self.timeLabel.textAlignment = NSTextAlignmentCenter;
+    self.timeLabel.text = @"25:00";
+    
+    [self.view addSubview:self.timeLabel];
+    
+    self.timerButton = [[UIButton alloc] initWithFrame:CGRectMake(margin, 250, self.view.bounds.size.width - (margin * 2), 30)];
+    [self.timerButton setTitle:@"Start round" forState:UIControlStateNormal];
+    [self.timerButton addTarget:self action:@selector(startSession) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:self.timerButton];
+}
+
+- (void)registerForNotifications {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateLabel:) name:secondTickNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateButton:) name:timerCompleteNotification object:nil];
+}
+
+- (void)unregisterForNotifications {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)updateLabel:(NSNotification *) notification {
+    self.timeLabel.text = [NSString stringWithFormat:@"%ld",[POTimer sharedInstance].seconds];
+}
+
+- (void)updateButton:(NSNotification *) notification {
+    
+}
+
+- (void)startSession {
+    [[POTimer sharedInstance] startTimer];
+}
+
+- (void)dealloc {
+    [self unregisterForNotifications];
 }
 
 - (void)didReceiveMemoryWarning {
