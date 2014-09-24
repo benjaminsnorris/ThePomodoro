@@ -41,7 +41,7 @@
     self.timeLabel.textColor = [UIColor whiteColor];
     self.timeLabel.font = [UIFont fontWithName:@"Avenir Next" size:100];
     self.timeLabel.textAlignment = NSTextAlignmentCenter;
-    self.timeLabel.text = @"25:00";
+    [self updateLabel];
     
     [self.view addSubview:self.timeLabel];
     
@@ -53,15 +53,16 @@
 }
 
 - (void)registerForNotifications {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateLabel:) name:secondTickNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateButton:) name:timerCompleteNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateLabel) name:secondTickNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateButton) name:timerCompleteNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newSession) name:newRoundNotification object:nil];
 }
 
 - (void)unregisterForNotifications {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)updateLabel:(NSNotification *) notification {
+- (void)updateLabel {
     NSInteger minutes = floor([POTimer sharedInstance].seconds / 60);
     NSInteger seconds = [POTimer sharedInstance].seconds % 60;
     
@@ -72,7 +73,7 @@
     }
 }
 
-- (void)updateButton:(NSNotification *) notification {
+- (void)updateButton {
     self.timerButton.enabled = YES;
     [self.timerButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 }
@@ -81,6 +82,11 @@
     [[POTimer sharedInstance] startTimer];
     self.timerButton.enabled = NO;
     [self.timerButton setTitleColor:[UIColor colorWithWhite:1.0 alpha:0.4] forState:UIControlStateNormal];
+}
+
+- (void)newSession {
+    [self updateLabel];
+    [self updateButton];
 }
 
 - (void)dealloc {

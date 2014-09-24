@@ -10,4 +10,8 @@
 
 @interface PORoundsDataSource : NSObject <UITableViewDataSource>
 
+@property (nonatomic, assign) NSInteger currentRound;
+
+- (NSNumber *)roundAtIndex:(NSInteger) index;
+
 @end

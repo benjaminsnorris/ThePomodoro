@@ -8,6 +8,7 @@
 
 #import "PORoundsViewController.h"
 #import "PORoundsDataSource.h"
+#import "POTimer.h"
 
 @interface PORoundsViewController ()
 
@@ -17,6 +18,16 @@
 @end
 
 @implementation PORoundsViewController
+
+- (id)init {
+    self = [super init];
+    
+    if (self) {
+        [self registerForNotifications];
+    }
+    
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -29,6 +40,40 @@
     self.tableView.dataSource = self.dataSource;
     
     [self.view addSubview:self.tableView];
+}
+
+- (void)updateTimer {
+    [[POTimer sharedInstance] cancelTimer];
+    [POTimer sharedInstance].seconds = [[self.dataSource roundAtIndex:self.dataSource.currentRound] integerValue] * 60;
+    [[NSNotificationCenter defaultCenter] postNotificationName:newRoundNotification object:nil];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    self.dataSource.currentRound = indexPath.row;
+    [self updateTimer];
+}
+
+- (void)endSession:(NSNotification *) notification {
+    self.dataSource.currentRound++;
+    [self getCurrentRound];
+    [self updateTimer];
+}
+
+- (void)getCurrentRound {
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:self.dataSource.currentRound inSection:0];
+    [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+}
+
+- (void)registerForNotifications {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endSession:) name:timerCompleteNotification object:nil];
+}
+
+- (void)unregisterForNotifications {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)dealloc {
+    [self unregisterForNotifications];
 }
 
 - (void)didReceiveMemoryWarning {

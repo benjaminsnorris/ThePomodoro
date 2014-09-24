@@ -10,6 +10,7 @@
 
 NSString * const secondTickNotification = @"secondTick";
 NSString * const timerCompleteNotification = @"timerComplete";
+NSString * const newRoundNotification = @"newRound";
 
 @interface POTimer()
 
@@ -29,7 +30,6 @@ NSString * const timerCompleteNotification = @"timerComplete";
 }
 
 - (void)startTimer {
-    self.seconds = 65;
     self.isRunning = YES;
     [self runTimer];
 }
@@ -46,6 +46,12 @@ NSString * const timerCompleteNotification = @"timerComplete";
 - (void)endTimer {
     self.isRunning = NO;
     [[NSNotificationCenter defaultCenter] postNotificationName:timerCompleteNotification object:nil];
+}
+
+- (void)cancelTimer {
+    self.isRunning = NO;
+    // QUESTION: Why would the selector of this be decreaseSecond?
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(decreaseSecond) object:nil];
 }
 
 - (void)decreaseSecond {

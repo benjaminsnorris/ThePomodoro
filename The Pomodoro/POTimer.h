@@ -10,6 +10,7 @@
 
 extern NSString * const secondTickNotification;
 extern NSString * const timerCompleteNotification;
+extern NSString * const newRoundNotification;
 
 @interface POTimer : NSObject
 
@@ -17,5 +18,6 @@ extern NSString * const timerCompleteNotification;
 
 + (POTimer *)sharedInstance;
 - (void)startTimer;
+- (void)cancelTimer;
 
 @end
