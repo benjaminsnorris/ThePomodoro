@@ -18,12 +18,15 @@
     // Override point for customization after application launch.
     
     UITabBarController *tabBarController = [UITabBarController new];
-    POTimerViewController *timerViewController = [POTimerViewController new];
-    timerViewController.tabBarItem.title = @"Timer";
+    tabBarController.tabBar.tintColor = [UIColor redColor];
     PORoundsViewController *roundsViewController = [PORoundsViewController new];
     roundsViewController.tabBarItem.title = @"Rounds";
-    
-    tabBarController.viewControllers = @[timerViewController, roundsViewController];
+    roundsViewController.tabBarItem.image = [UIImage imageNamed:@"rounds"];
+    POTimerViewController *timerViewController = [POTimerViewController new];
+    timerViewController.tabBarItem.title = @"Timer";
+    timerViewController.tabBarItem.image = [UIImage imageNamed:@"clock"];
+ 
+    tabBarController.viewControllers = @[roundsViewController, timerViewController];
     
     self.window.rootViewController = tabBarController;
     
