@@ -29,7 +29,7 @@ NSString * const timerCompleteNotification = @"timerComplete";
 }
 
 - (void)startTimer {
-    self.seconds = 10;
+    self.seconds = 65;
     self.isRunning = YES;
     [self runTimer];
 }

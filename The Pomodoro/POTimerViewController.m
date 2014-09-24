@@ -62,15 +62,25 @@
 }
 
 - (void)updateLabel:(NSNotification *) notification {
-    self.timeLabel.text = [NSString stringWithFormat:@"%ld",[POTimer sharedInstance].seconds];
+    NSInteger minutes = floor([POTimer sharedInstance].seconds / 60);
+    NSInteger seconds = [POTimer sharedInstance].seconds % 60;
+    
+    if (seconds > 9) {
+        self.timeLabel.text = [NSString stringWithFormat:@"%ld:%ld", minutes, seconds];
+    } else {
+        self.timeLabel.text = [NSString stringWithFormat:@"%ld:0%ld",minutes, seconds];
+    }
 }
 
 - (void)updateButton:(NSNotification *) notification {
-    
+    self.timerButton.enabled = YES;
+    [self.timerButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 }
 
 - (void)startSession {
     [[POTimer sharedInstance] startTimer];
+    self.timerButton.enabled = NO;
+    [self.timerButton setTitleColor:[UIColor colorWithWhite:1.0 alpha:0.4] forState:UIControlStateNormal];
 }
 
 - (void)dealloc {
