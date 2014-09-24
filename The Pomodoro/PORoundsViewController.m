@@ -40,6 +40,9 @@
     self.tableView.dataSource = self.dataSource;
     
     [self.view addSubview:self.tableView];
+    
+    [self getCurrentRound];
+    [self updateTimer];
 }
 
 - (void)updateTimer {

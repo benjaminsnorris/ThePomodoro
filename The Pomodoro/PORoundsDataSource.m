@@ -12,6 +12,13 @@
 
 @implementation PORoundsDataSource
 
+- (id)init {
+    if (self = [super init]) {
+        self.currentRound = [[NSUserDefaults standardUserDefaults] integerForKey:currentRoundKey];
+    }
+    return self;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self times].count;
 }
@@ -42,6 +49,9 @@
     } else {
         _currentRound = currentRound;
     }
+    
+    [[NSUserDefaults standardUserDefaults] setValue:@(currentRound) forKey:currentRoundKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 @end
