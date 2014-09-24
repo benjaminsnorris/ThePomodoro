@@ -18,24 +18,26 @@
     // Override point for customization after application launch.
     
     UITabBarController *tabBarController = [UITabBarController new];
-    tabBarController.tabBar.tintColor = [UIColor redColor];
     
     PORoundsViewController *roundsViewController = [PORoundsViewController new];
     roundsViewController.tabBarItem.title = @"Rounds";
     roundsViewController.tabBarItem.image = [UIImage imageNamed:@"rounds"];
     UINavigationController *roundsNavController = [[UINavigationController alloc] initWithRootViewController:roundsViewController];
-    [roundsNavController.navigationBar setBarTintColor:[UIColor redColor]];
     roundsNavController.navigationBar.translucent = NO;
     
     POTimerViewController *timerViewController = [POTimerViewController new];
     timerViewController.tabBarItem.title = @"Timer";
     timerViewController.tabBarItem.image = [UIImage imageNamed:@"clock"];
     UINavigationController *timerNavController =[[UINavigationController alloc] initWithRootViewController:timerViewController];
-    [timerNavController.navigationBar setBarTintColor:[UIColor redColor]];
     timerNavController.navigationBar.translucent = NO;
 
-//    tabBarController.viewControllers = @[roundsNavController, timerNavController];
-    tabBarController.viewControllers = @[timerNavController, roundsNavController];
+    tabBarController.viewControllers = @[roundsNavController, timerNavController];
+//    tabBarController.viewControllers = @[timerNavController, roundsNavController];
+    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor redColor]];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [UIFont fontWithName:@"Avenir Next" size:20]}];
+    tabBarController.tabBar.tintColor = [UIColor redColor];
     
     self.window.rootViewController = tabBarController;
     
