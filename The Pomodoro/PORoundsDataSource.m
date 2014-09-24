@@ -29,11 +29,19 @@
 }
 
 - (NSArray *)times {
-    return @[@25, @5, @25, @5, @25, @5, @25, @15, @1];
+    return @[@25, @5, @25, @5, @25, @5, @25, @15];
 }
 
 - (NSNumber *)roundAtIndex:(NSInteger) index {
     return [self times][index];
+}
+
+- (void)setCurrentRound:(NSInteger)currentRound {
+    if (currentRound >= [self times].count) {
+        _currentRound = 0;
+    } else {
+        _currentRound = currentRound;
+    }
 }
 
 @end
