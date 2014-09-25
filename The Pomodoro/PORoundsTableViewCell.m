@@ -8,17 +8,28 @@
 
 #import "PORoundsTableViewCell.h"
 
+#define margin 5
+
 @implementation PORoundsTableViewCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     
+    [self.textLabel setFont:[UIFont fontWithName:@"Avenir Next" size:18]];
+
     UIView *selectedView = [UIView new];
     selectedView.backgroundColor = [UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:0.2];
+    
+    CGFloat progressSize = self.bounds.size.height - (margin * 1);
+    self.progressView = [[POCircleProgressView alloc] initWithFrame:CGRectMake(self.bounds.size.width - progressSize - margin, margin, progressSize, progressSize)];
+    self.progressView.fillColor = [UIColor redColor];
+    self.progressView.fillBackgroundColor = nil;
+    self.progressView.borderColor = nil;
+    self.progressView.progress = 0.75;
+    [selectedView addSubview:self.progressView];
+    
     [self setSelectedBackgroundView:selectedView];
-    
-    [self.textLabel setFont:[UIFont fontWithName:@"Avenir Next" size:18]];
-    
+
     return self;
 }
 

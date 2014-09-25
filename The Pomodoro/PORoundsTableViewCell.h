@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "POCircleProgressView.h"
 
 @interface PORoundsTableViewCell : UITableViewCell
+
+@property (nonatomic, strong) POCircleProgressView *progressView;
 
 @end
