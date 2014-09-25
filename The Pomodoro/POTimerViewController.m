@@ -11,11 +11,13 @@
 #import "POCircleProgressView.h"
 
 #define margin 15
+#define buttonHeight 30
 
 @interface POTimerViewController ()
 
 @property (nonatomic, strong) UILabel *timeLabel;
 @property (nonatomic, strong) UIButton *timerButton;
+@property (nonatomic, strong) UIButton *cancelButton;
 @property (nonatomic, strong) POCircleProgressView *progressView;
 
 @end
@@ -61,11 +63,18 @@
     [self.view addSubview:self.timeLabel];
     
     CGFloat buttonVerticalPosition = self.progressView.frame.origin.y + self.progressView.bounds.size.height + margin;
-    self.timerButton = [[UIButton alloc] initWithFrame:CGRectMake(margin, buttonVerticalPosition, self.view.bounds.size.width - (margin * 2), 30)];
+    self.timerButton = [[UIButton alloc] initWithFrame:CGRectMake(margin, buttonVerticalPosition, self.view.bounds.size.width - (margin * 2), buttonHeight)];
     [self.timerButton addTarget:self action:@selector(startPauseSession) forControlEvents:UIControlEventTouchUpInside];
     [self.timerButton setTitle:@"Start round" forState:UIControlStateNormal];
-    [self.timerButton setTitleColor:[UIColor colorWithWhite:1.0 alpha:0.4] forState:UIControlStateHighlighted];
     [self.view addSubview:self.timerButton];
+    
+    self.cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(margin, buttonVerticalPosition + margin + buttonHeight, self.view.bounds.size.width - (margin * 2), buttonHeight)];
+    [self.cancelButton addTarget:self action:@selector(cancelSession) forControlEvents:UIControlEventTouchUpInside];
+    [self.cancelButton setTitle:@"Cancel round" forState:UIControlStateNormal];
+    [self.view addSubview:self.cancelButton];
+    self.cancelButton.hidden = YES;
+    
+    [[UIButton appearance] setTitleColor:[UIColor colorWithWhite:1.0 alpha:0.4] forState:UIControlStateHighlighted];
 }
 
 - (void)registerForNotifications {
@@ -107,11 +116,17 @@
         [[POTimer sharedInstance] startTimer];
         [self.timerButton setTitle:@"Pause round" forState:UIControlStateNormal];
     }
+    self.cancelButton.hidden = NO;
 }
 
 - (void)newSession {
     [self updateLabel];
     [self updateButton];
+}
+
+- (void)cancelSession {
+    [[POTimer sharedInstance] endTimer];
+    self.cancelButton.hidden = YES;
 }
 
 - (void)dealloc {

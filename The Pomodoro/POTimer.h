@@ -21,5 +21,6 @@ extern NSString * const newRoundNotification;
 + (POTimer *)sharedInstance;
 - (void)startTimer;
 - (void)stopTimer;
+- (void)endTimer;
 
 @end
