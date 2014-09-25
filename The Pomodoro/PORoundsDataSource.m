@@ -7,6 +7,7 @@
 //
 
 #import "PORoundsDataSource.h"
+#import "PORoundsTableViewCell.h"
 
 #define currentRoundKey @"currentRound"
 
@@ -24,10 +25,10 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    PORoundsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
+        cell = [[PORoundsTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
     }
     
     cell.textLabel.text = [NSString stringWithFormat:@"Round %ld - %@ min", indexPath.row + 1, [[self times][indexPath.row] stringValue]];
