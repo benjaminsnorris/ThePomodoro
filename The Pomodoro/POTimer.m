@@ -8,6 +8,8 @@
 
 #import "POTimer.h"
 
+#define timerDelay 0.05
+
 NSString * const secondTickNotification = @"secondTick";
 NSString * const timerCompleteNotification = @"timerComplete";
 NSString * const newRoundNotification = @"newRound";
@@ -15,7 +17,7 @@ NSString * const newRoundNotification = @"newRound";
 @interface POTimer()
 
 @property (nonatomic, assign) BOOL isRunning;
-@property (nonatomic, assign) NSInteger seconds;
+@property (nonatomic, assign) CGFloat seconds;
 
 @end
 
@@ -47,7 +49,7 @@ NSString * const newRoundNotification = @"newRound";
     
     if (self.isRunning) {
         [self decreaseSecond];
-        [self performSelector:@selector(runTimer) withObject:self afterDelay:1.0];
+        [self performSelector:@selector(runTimer) withObject:self afterDelay:timerDelay];
     }
 }
 
@@ -64,7 +66,7 @@ NSString * const newRoundNotification = @"newRound";
 
 - (void)decreaseSecond {
     if (self.seconds > 0) {
-        self.seconds--;
+        self.seconds -= timerDelay;
         [[NSNotificationCenter defaultCenter] postNotificationName:secondTickNotification object:nil];
     } else if (self.seconds == 0) {
         [self endTimer];

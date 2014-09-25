@@ -37,7 +37,7 @@
 }
 
 - (NSArray *)times {
-    return @[@25, @5, @25, @5, @25, @5, @25, @15];
+    return @[@25, @5, @25, @5, @25, @5, @25, @15, @1];
 }
 
 - (NSNumber *)roundAtIndex:(NSInteger) index {

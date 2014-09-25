@@ -15,7 +15,7 @@ extern NSString * const newRoundNotification;
 @interface POTimer : NSObject
 
 @property (nonatomic, assign) NSInteger startingSeconds;
-@property (nonatomic, assign, readonly) NSInteger seconds;
+@property (nonatomic, assign, readonly) CGFloat seconds;
 
 + (POTimer *)sharedInstance;
 - (void)startTimer;

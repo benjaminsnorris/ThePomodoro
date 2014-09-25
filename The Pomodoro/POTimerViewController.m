@@ -79,7 +79,7 @@
 
 - (void)updateLabel {
     NSInteger minutes = floor([POTimer sharedInstance].seconds / 60);
-    NSInteger seconds = [POTimer sharedInstance].seconds % 60;
+    NSInteger seconds = floorf([POTimer sharedInstance].seconds  - (minutes * 60));
     
     if (seconds > 9) {
         self.timeLabel.text = [NSString stringWithFormat:@"%ld:%ld", minutes, seconds];
