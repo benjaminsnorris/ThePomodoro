@@ -106,6 +106,7 @@
 
 - (void)updateButton {
     [self.timerButton setTitle:@"Start round" forState:UIControlStateNormal];
+    self.cancelButton.hidden = YES;
 }
 
 - (void)startPauseSession {
