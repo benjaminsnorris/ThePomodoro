@@ -25,7 +25,6 @@
     self.progressView.fillColor = [UIColor redColor];
     self.progressView.fillBackgroundColor = nil;
     self.progressView.borderColor = nil;
-    self.progressView.progress = 0.75;
     [selectedView addSubview:self.progressView];
     
     [self setSelectedBackgroundView:selectedView];

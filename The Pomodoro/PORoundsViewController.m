@@ -9,6 +9,7 @@
 #import "PORoundsViewController.h"
 #import "PORoundsDataSource.h"
 #import "POTimer.h"
+#import "PORoundsTableViewCell.h"
 
 @interface PORoundsViewController ()
 
@@ -56,6 +57,15 @@
     [self updateTimer];
 }
 
+- (void)updateProgress {
+    PORoundsTableViewCell *currentCell = (PORoundsTableViewCell *)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
+    if (([POTimer sharedInstance].seconds > 0) && ([POTimer sharedInstance].startingSeconds != [POTimer sharedInstance].seconds)) {
+        currentCell.progressView.progress = ([POTimer sharedInstance].seconds / (CGFloat)[POTimer sharedInstance].startingSeconds);
+    } else {
+        currentCell.progressView.progress = 0;
+    }
+}
+
 - (void)endSession:(NSNotification *) notification {
     self.dataSource.currentRound++;
     [self getCurrentRound];
@@ -69,6 +79,7 @@
 
 - (void)registerForNotifications {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endSession:) name:timerCompleteNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateProgress) name:secondTickNotification object:nil];
 }
 
 - (void)unregisterForNotifications {
