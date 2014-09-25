@@ -53,6 +53,12 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:newRoundNotification object:nil];
 }
 
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    PORoundsTableViewCell *currentCell = (PORoundsTableViewCell *)[self.tableView cellForRowAtIndexPath:[self.tableView indexPathForSelectedRow]];
+    currentCell.progressView.progress = 0;
+    return indexPath;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     self.dataSource.currentRound = indexPath.row;
     [self updateTimer];
