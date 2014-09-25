@@ -40,6 +40,7 @@
     self.dataSource = [PORoundsDataSource new];
     self.tableView.dataSource = self.dataSource;
     self.tableView.rowHeight = 50.0;
+    self.tableView.autoresizingMask = (UIViewAutoresizingFlexibleWidth);
     
     [self.view addSubview:self.tableView];
     

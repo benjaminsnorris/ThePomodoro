@@ -17,14 +17,16 @@
     
     [self.textLabel setFont:[UIFont fontWithName:@"Avenir Next" size:18]];
 
-    UIView *selectedView = [UIView new];
+    UIView *selectedView = [[UIView alloc] initWithFrame:self.frame];
     selectedView.backgroundColor = [UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:0.2];
+    selectedView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
     
     CGFloat progressSize = self.bounds.size.height - (margin * 1);
     self.progressView = [[POCircleProgressView alloc] initWithFrame:CGRectMake(self.bounds.size.width - progressSize - margin, margin, progressSize, progressSize)];
     self.progressView.fillColor = [UIColor redColor];
     self.progressView.fillBackgroundColor = nil;
     self.progressView.borderColor = nil;
+    self.progressView.autoresizingMask = (UIViewAutoresizingFlexibleLeftMargin);
     [selectedView addSubview:self.progressView];
     
     [self setSelectedBackgroundView:selectedView];
