@@ -62,8 +62,9 @@
     
     CGFloat buttonVerticalPosition = self.progressView.frame.origin.y + self.progressView.bounds.size.height + margin;
     self.timerButton = [[UIButton alloc] initWithFrame:CGRectMake(margin, buttonVerticalPosition, self.view.bounds.size.width - (margin * 2), 30)];
+    [self.timerButton addTarget:self action:@selector(startPauseSession) forControlEvents:UIControlEventTouchUpInside];
     [self.timerButton setTitle:@"Start round" forState:UIControlStateNormal];
-    [self.timerButton addTarget:self action:@selector(startSession) forControlEvents:UIControlEventTouchUpInside];
+    [self.timerButton setTitleColor:[UIColor colorWithWhite:1.0 alpha:0.4] forState:UIControlStateHighlighted];
     [self.view addSubview:self.timerButton];
 }
 
@@ -95,14 +96,17 @@
 }
 
 - (void)updateButton {
-    self.timerButton.enabled = YES;
-    [self.timerButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.timerButton setTitle:@"Start round" forState:UIControlStateNormal];
 }
 
-- (void)startSession {
-    [[POTimer sharedInstance] startTimer];
-    self.timerButton.enabled = NO;
-    [self.timerButton setTitleColor:[UIColor colorWithWhite:1.0 alpha:0.4] forState:UIControlStateNormal];
+- (void)startPauseSession {
+    if ([POTimer sharedInstance].isRunning) {
+        [[POTimer sharedInstance] stopTimer];
+        [self.timerButton setTitle:@"Resume round" forState:UIControlStateNormal];
+    } else {
+        [[POTimer sharedInstance] startTimer];
+        [self.timerButton setTitle:@"Pause round" forState:UIControlStateNormal];
+    }
 }
 
 - (void)newSession {

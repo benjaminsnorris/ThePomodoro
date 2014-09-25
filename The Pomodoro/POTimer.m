@@ -58,7 +58,7 @@ NSString * const newRoundNotification = @"newRound";
     [[NSNotificationCenter defaultCenter] postNotificationName:timerCompleteNotification object:nil];
 }
 
-- (void)cancelTimer {
+- (void)stopTimer {
     self.isRunning = NO;
     // QUESTION: Why would the selector of this be decreaseSecond?
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(decreaseSecond) object:nil];
