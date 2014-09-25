@@ -39,6 +39,7 @@
     self.tableView.delegate = self;
     self.dataSource = [PORoundsDataSource new];
     self.tableView.dataSource = self.dataSource;
+    self.tableView.rowHeight = 50.0;
     
     [self.view addSubview:self.tableView];
     
