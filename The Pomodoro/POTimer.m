@@ -15,6 +15,7 @@ NSString * const newRoundNotification = @"newRound";
 @interface POTimer()
 
 @property (nonatomic, assign) BOOL isRunning;
+@property (nonatomic, assign) NSInteger seconds;
 
 @end
 
@@ -32,6 +33,13 @@ NSString * const newRoundNotification = @"newRound";
 - (void)startTimer {
     self.isRunning = YES;
     [self runTimer];
+}
+
+- (void)setStartingSeconds:(NSInteger)startingSeconds {
+    if (startingSeconds > 0) {
+        _startingSeconds = startingSeconds;
+        _seconds = startingSeconds;
+    }
 }
 
 - (void)runTimer {

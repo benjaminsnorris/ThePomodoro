@@ -47,7 +47,7 @@
 
 - (void)updateTimer {
     [[POTimer sharedInstance] cancelTimer];
-    [POTimer sharedInstance].seconds = [[self.dataSource roundAtIndex:self.dataSource.currentRound] integerValue] * 60;
+    [POTimer sharedInstance].startingSeconds = [[self.dataSource roundAtIndex:self.dataSource.currentRound] integerValue] * 60;
     [[NSNotificationCenter defaultCenter] postNotificationName:newRoundNotification object:nil];
 }
 
