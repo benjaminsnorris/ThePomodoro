@@ -10,12 +10,21 @@
 #import "POTimerViewController.h"
 #import "PORoundsViewController.h"
 
+@interface POAppDelegate()
+
+@property (nonatomic, strong) POTimerViewController *timerViewController;
+
+@end
+
 @implementation POAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    
+    UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil];
+    [application registerUserNotificationSettings:notificationSettings];
     
     UITabBarController *tabBarController = [UITabBarController new];
     
@@ -25,10 +34,10 @@
     UINavigationController *roundsNavController = [[UINavigationController alloc] initWithRootViewController:roundsViewController];
     roundsNavController.navigationBar.translucent = NO;
     
-    POTimerViewController *timerViewController = [POTimerViewController new];
-    timerViewController.tabBarItem.title = @"Timer";
-    timerViewController.tabBarItem.image = [UIImage imageNamed:@"clock"];
-    UINavigationController *timerNavController =[[UINavigationController alloc] initWithRootViewController:timerViewController];
+    self.timerViewController = [POTimerViewController new];
+    self.timerViewController.tabBarItem.title = @"Timer";
+    self.timerViewController.tabBarItem.image = [UIImage imageNamed:@"clock"];
+    UINavigationController *timerNavController =[[UINavigationController alloc] initWithRootViewController:self.timerViewController];
     timerNavController.navigationBar.translucent = NO;
 
     tabBarController.viewControllers = @[roundsNavController, timerNavController];
@@ -44,6 +53,23 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
+}
+
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:notification.alertBody message:nil preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Not yet" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        // Dismiss for now
+    }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Start next session" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        [self.timerViewController startPauseSession];
+    }]];
+    
+    [self.window.rootViewController presentViewController:alertController animated:YES completion:nil];
+    
+//    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"An Alert" message:notification.alertBody delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//    [alertView show];
+    application.applicationIconBadgeNumber = 0;
+    
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -66,6 +92,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    application.applicationIconBadgeNumber = 0;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

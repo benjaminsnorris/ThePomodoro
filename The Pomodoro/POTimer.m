@@ -18,6 +18,7 @@ NSString * const newRoundNotification = @"newRound";
 
 @property (nonatomic, assign) BOOL isRunning;
 @property (nonatomic, assign) CGFloat seconds;
+@property (nonatomic, strong) UILocalNotification *sessionEndNotification;
 
 @end
 
@@ -32,7 +33,22 @@ NSString * const newRoundNotification = @"newRound";
     return sharedInstance;
 }
 
+- (id)init {
+    self.sessionEndNotification = [UILocalNotification new];
+    self.sessionEndNotification.repeatInterval = 0;
+    self.sessionEndNotification.alertBody = @"Pomodoro Session Complete";
+    self.sessionEndNotification.soundName = @"sms_alert_circles.caf";
+    self.sessionEndNotification.applicationIconBadgeNumber = 1;
+    
+    return self;
+}
+
 - (void)startTimer {
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
+
+    self.sessionEndNotification.fireDate = [[NSDate date] dateByAddingTimeInterval:self.seconds];
+    [[UIApplication sharedApplication] scheduleLocalNotification:self.sessionEndNotification];
+
     self.isRunning = YES;
     [self runTimer];
 }
@@ -54,12 +70,15 @@ NSString * const newRoundNotification = @"newRound";
 }
 
 - (void)endTimer {
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
+
     self.isRunning = NO;
     [[NSNotificationCenter defaultCenter] postNotificationName:timerCompleteNotification object:nil];
 }
 
 - (void)stopTimer {
     self.isRunning = NO;
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
     // QUESTION: Why would the selector of this be decreaseSecond?
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(decreaseSecond) object:nil];
 }
@@ -68,7 +87,7 @@ NSString * const newRoundNotification = @"newRound";
     if (self.seconds > 0) {
         self.seconds -= timerDelay;
         [[NSNotificationCenter defaultCenter] postNotificationName:secondTickNotification object:nil];
-    } else if (self.seconds == 0) {
+    } else if (self.seconds <= 0) {
         [self endTimer];
     }
 }

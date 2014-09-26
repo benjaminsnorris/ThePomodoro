@@ -10,4 +10,6 @@
 
 @interface POTimerViewController : UIViewController
 
+- (void)startPauseSession;
+
 @end
