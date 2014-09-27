@@ -7,11 +7,12 @@
 //
 
 #import "POProjectsDataSource.h"
+#import "POProjectController.h"
 
 @implementation POProjectsDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    return [POProjectController sharedInstance].projects.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -21,7 +22,8 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
     }
     
-    cell.textLabel.text = @"Project";
+    POProject *project = [POProjectController sharedInstance].projects[indexPath.row];
+    cell.textLabel.text = project.title;
     
     return cell;
 }
