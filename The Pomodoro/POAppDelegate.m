@@ -9,6 +9,7 @@
 #import "POAppDelegate.h"
 #import "POTimerViewController.h"
 #import "PORoundsViewController.h"
+#import "POProjectsViewController.h"
 
 @interface POAppDelegate()
 
@@ -28,6 +29,12 @@
     
     UITabBarController *tabBarController = [UITabBarController new];
     
+    POProjectsViewController *projectsViewController = [POProjectsViewController new];
+    projectsViewController.tabBarItem.title = @"Projects";
+    projectsViewController.tabBarItem.image = [UIImage imageNamed:@"rounds"];
+    UINavigationController *projectsNavController = [[UINavigationController alloc] initWithRootViewController:projectsViewController];
+    projectsNavController.navigationBar.translucent = NO;
+    
     PORoundsViewController *roundsViewController = [PORoundsViewController new];
     roundsViewController.tabBarItem.title = @"Rounds";
     roundsViewController.tabBarItem.image = [UIImage imageNamed:@"rounds"];
@@ -40,7 +47,7 @@
     UINavigationController *timerNavController =[[UINavigationController alloc] initWithRootViewController:self.timerViewController];
     timerNavController.navigationBar.translucent = NO;
 
-    tabBarController.viewControllers = @[roundsNavController, timerNavController];
+    tabBarController.viewControllers = @[projectsNavController, roundsNavController, timerNavController];
 //    tabBarController.viewControllers = @[timerNavController, roundsNavController];
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
