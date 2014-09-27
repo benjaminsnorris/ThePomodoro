@@ -145,18 +145,7 @@
 			children = (
 				7141B2F4193DBDFD0084F9F1 /* POAppDelegate.h */,
 				7141B2F5193DBDFD0084F9F1 /* POAppDelegate.m */,
-				E758EB5319D73F280064CE72 /* POProjectsViewController.h */,
-				E758EB5419D73F280064CE72 /* POProjectsViewController.m */,
-				E758EB5619D740490064CE72 /* POProjectsDataSource.h */,
-				E758EB5719D740490064CE72 /* POProjectsDataSource.m */,
-				E758EB6219D75CCB0064CE72 /* POProjectDetailViewController.h */,
-				E758EB6319D75CCB0064CE72 /* POProjectDetailViewController.m */,
-				E758EB5F19D7526D0064CE72 /* POProjectController.h */,
-				E758EB6019D7526D0064CE72 /* POProjectController.m */,
-				E758EB5919D750810064CE72 /* POProject.h */,
-				E758EB5A19D750810064CE72 /* POProject.m */,
-				E758EB5C19D750DE0064CE72 /* POWorkPeriod.h */,
-				E758EB5D19D750DE0064CE72 /* POWorkPeriod.m */,
+				E758EB6519D75F6C0064CE72 /* Projects */,
 				E758EB5119D73EC40064CE72 /* Rounds */,
 				E758EB5219D73ED10064CE72 /* Timer */,
 				E7F593F619D44F440046472B /* POCircleProgressView.h */,
@@ -218,6 +207,25 @@
 				E70D6B6519D258BD00F8263C /* POTimerViewController.m */,
 			);
 			name = Timer;
+			sourceTree = "<group>";
+		};
+		E758EB6519D75F6C0064CE72 /* Projects */ = {
+			isa = PBXGroup;
+			children = (
+				E758EB5319D73F280064CE72 /* POProjectsViewController.h */,
+				E758EB5419D73F280064CE72 /* POProjectsViewController.m */,
+				E758EB5619D740490064CE72 /* POProjectsDataSource.h */,
+				E758EB5719D740490064CE72 /* POProjectsDataSource.m */,
+				E758EB6219D75CCB0064CE72 /* POProjectDetailViewController.h */,
+				E758EB6319D75CCB0064CE72 /* POProjectDetailViewController.m */,
+				E758EB5F19D7526D0064CE72 /* POProjectController.h */,
+				E758EB6019D7526D0064CE72 /* POProjectController.m */,
+				E758EB5919D750810064CE72 /* POProject.h */,
+				E758EB5A19D750810064CE72 /* POProject.m */,
+				E758EB5C19D750DE0064CE72 /* POWorkPeriod.h */,
+				E758EB5D19D750DE0064CE72 /* POWorkPeriod.m */,
+			);
+			name = Projects;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

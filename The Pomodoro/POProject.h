@@ -14,4 +14,7 @@
 @property (nonatomic, assign) NSInteger timeSpent;
 @property (nonatomic, strong) NSArray *workPeriods;
 
+- (NSDictionary *)projectDictionary;
+- (id)initWithDictionary: (NSDictionary *)dictionary;
+
 @end
