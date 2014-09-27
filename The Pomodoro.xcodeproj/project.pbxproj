@@ -28,6 +28,7 @@
 		E758EB5B19D750810064CE72 /* POProject.m in Sources */ = {isa = PBXBuildFile; fileRef = E758EB5A19D750810064CE72 /* POProject.m */; };
 		E758EB5E19D750DE0064CE72 /* POWorkPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = E758EB5D19D750DE0064CE72 /* POWorkPeriod.m */; };
 		E758EB6119D7526D0064CE72 /* POProjectController.m in Sources */ = {isa = PBXBuildFile; fileRef = E758EB6019D7526D0064CE72 /* POProjectController.m */; };
+		E758EB6419D75CCB0064CE72 /* POProjectDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E758EB6319D75CCB0064CE72 /* POProjectDetailViewController.m */; };
 		E7EDC58019D499F80027F53E /* PORoundsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E7EDC57F19D499F70027F53E /* PORoundsTableViewCell.m */; };
 		E7F593F819D44F440046472B /* POCircleProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = E7F593F719D44F440046472B /* POCircleProgressView.m */; };
 /* End PBXBuildFile section */
@@ -77,6 +78,8 @@
 		E758EB5D19D750DE0064CE72 /* POWorkPeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POWorkPeriod.m; sourceTree = "<group>"; };
 		E758EB5F19D7526D0064CE72 /* POProjectController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POProjectController.h; sourceTree = "<group>"; };
 		E758EB6019D7526D0064CE72 /* POProjectController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POProjectController.m; sourceTree = "<group>"; };
+		E758EB6219D75CCB0064CE72 /* POProjectDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POProjectDetailViewController.h; sourceTree = "<group>"; };
+		E758EB6319D75CCB0064CE72 /* POProjectDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = POProjectDetailViewController.m; sourceTree = "<group>"; };
 		E7EDC57E19D499F70027F53E /* PORoundsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PORoundsTableViewCell.h; sourceTree = "<group>"; };
 		E7EDC57F19D499F70027F53E /* PORoundsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PORoundsTableViewCell.m; sourceTree = "<group>"; };
 		E7F593F619D44F440046472B /* POCircleProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POCircleProgressView.h; sourceTree = "<group>"; };
@@ -146,6 +149,8 @@
 				E758EB5419D73F280064CE72 /* POProjectsViewController.m */,
 				E758EB5619D740490064CE72 /* POProjectsDataSource.h */,
 				E758EB5719D740490064CE72 /* POProjectsDataSource.m */,
+				E758EB6219D75CCB0064CE72 /* POProjectDetailViewController.h */,
+				E758EB6319D75CCB0064CE72 /* POProjectDetailViewController.m */,
 				E758EB5F19D7526D0064CE72 /* POProjectController.h */,
 				E758EB6019D7526D0064CE72 /* POProjectController.m */,
 				E758EB5919D750810064CE72 /* POProject.h */,
@@ -317,6 +322,7 @@
 				E70D6B6619D258BD00F8263C /* POTimerViewController.m in Sources */,
 				E758EB5819D740490064CE72 /* POProjectsDataSource.m in Sources */,
 				7141B2F2193DBDFD0084F9F1 /* main.m in Sources */,
+				E758EB6419D75CCB0064CE72 /* POProjectDetailViewController.m in Sources */,
 				E70D6B6F19D2681A00F8263C /* POTimer.m in Sources */,
 				E7F593F819D44F440046472B /* POCircleProgressView.m in Sources */,
 				E758EB6119D7526D0064CE72 /* POProjectController.m in Sources */,

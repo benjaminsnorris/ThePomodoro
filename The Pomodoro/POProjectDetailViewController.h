@@ -1,5 +1,5 @@
 //
-//  POProjectsViewController.h
+//  POProjectDetailViewController.h
 //  The Pomodoro
 //
 //  Created by Ben Norris on 9/27/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface POProjectsViewController : UIViewController <UITableViewDelegate>
+@interface POProjectDetailViewController : UIViewController
 
 @end

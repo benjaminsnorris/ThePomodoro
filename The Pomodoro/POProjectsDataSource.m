@@ -25,6 +25,13 @@
     POProject *project = [POProjectController sharedInstance].projects[indexPath.row];
     cell.textLabel.text = project.title;
     
+    // Appearance stuff
+    [cell.textLabel setFont:[UIFont fontWithName:@"Avenir Next" size:18]];
+    UIView *selectedView = [[UIView alloc] initWithFrame:cell.frame];
+    selectedView.backgroundColor = [UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:0.2];
+    [cell setSelectedBackgroundView:selectedView];
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    
     return cell;
 }
 
