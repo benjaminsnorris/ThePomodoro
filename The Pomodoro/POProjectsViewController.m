@@ -41,6 +41,7 @@
     
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(add)];
     self.navigationItem.rightBarButtonItem = addButton;
+    self.navigationItem.leftBarButtonItem = self.editButtonItem;
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
 }
 
@@ -56,6 +57,11 @@
     detailViewController.title = [self.dataSource tableView:tableView cellForRowAtIndexPath:indexPath].textLabel.text;
     [detailViewController updateWithProject:[POProjectController sharedInstance].projects[indexPath.row]];
     [self.navigationController pushViewController:detailViewController animated:YES];
+}
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated {
+    [super setEditing:editing animated:animated];
+    [self.tableView setEditing:editing animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -35,4 +35,11 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [[POProjectController sharedInstance] removeProject:[POProjectController sharedInstance].projects[indexPath.row]];
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationBottom];
+    }
+}
+
 @end
