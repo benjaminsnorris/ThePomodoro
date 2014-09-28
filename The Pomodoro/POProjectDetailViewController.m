@@ -86,7 +86,18 @@
 }
 
 - (void)sendReport {
+    MFMailComposeViewController *mailController = [MFMailComposeViewController new];
+    mailController.mailComposeDelegate = self;
+    [mailController setSubject:[NSString stringWithFormat:@"Report for project: %@",self.titleField.text]];
+    [mailController setMessageBody:@"This is a test body." isHTML:NO];
+    
+    if ([MFMailComposeViewController canSendMail]) {
+        [self presentViewController:mailController animated:YES completion:nil];
+    }
+}
 
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
+    [controller dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (CGFloat)navAndStatusBarHeight {
