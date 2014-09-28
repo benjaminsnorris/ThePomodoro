@@ -7,10 +7,11 @@
 //
 
 #import "POProjectDetailViewController.h"
+#import <MessageUI/MessageUI.h>
 
 #define margin 15.0
 
-@interface POProjectDetailViewController ()
+@interface POProjectDetailViewController () <MFMailComposeViewControllerDelegate>
 
 @property (nonatomic, strong) UITextField *titleField;
 @property (nonatomic, strong) POProject *project;
@@ -37,6 +38,19 @@
     self.titleField.borderStyle = UITextBorderStyleRoundedRect;
     [self.view addSubview:self.titleField];
     [self.titleField addTarget:self action:@selector(saveProject) forControlEvents:UIControlEventEditingChanged];
+    
+    UIToolbar *toolbar = [UIToolbar new];
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addWorkPeriod)];
+    UIBarButtonItem *clockInButton = [[UIBarButtonItem alloc] initWithTitle:@"Clock In" style:UIBarButtonItemStylePlain target:self action:@selector(clockIn)];
+    UIBarButtonItem *clockOutButton = [[UIBarButtonItem alloc] initWithTitle:@"Clock Out" style:UIBarButtonItemStylePlain target:self action:@selector(clockOut)];
+//    UIBarButtonItem *reportButton = [[UIBarButtonItem alloc] initWithTitle:@"Report" style:UIBarButtonItemStylePlain target:self action:@selector(sendReport)];
+    UIBarButtonItem *reportButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(sendReport)];
+    UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+    
+    CGSize toolbarSize = [toolbar sizeThatFits:self.view.bounds.size];
+    [toolbar setItems:@[addButton, spaceItem, clockInButton, spaceItem, clockOutButton, spaceItem, reportButton]];
+    toolbar.frame = CGRectMake(0, self.view.bounds.size.height - self.navAndStatusBarHeight - toolbarSize.height - self.tabBarController.tabBar.frame.size.height, toolbarSize.width, toolbarSize.height);
+    [self.view addSubview:toolbar];
 }
 
 - (void)saveProject {
@@ -57,6 +71,26 @@
     self.project = project;
     
     self.titleField.text = project.title;
+}
+
+- (void)addWorkPeriod {
+    
+}
+
+- (void)clockIn {
+    
+}
+
+- (void)clockOut {
+    
+}
+
+- (void)sendReport {
+
+}
+
+- (CGFloat)navAndStatusBarHeight {
+    return self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
 }
 
 - (void)didReceiveMemoryWarning {
