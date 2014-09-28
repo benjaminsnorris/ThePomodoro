@@ -54,6 +54,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     POProjectDetailViewController *detailViewController = [POProjectDetailViewController new];
     detailViewController.title = [self.dataSource tableView:tableView cellForRowAtIndexPath:indexPath].textLabel.text;
+    [detailViewController updateWithProject:[POProjectController sharedInstance].projects[indexPath.row]];
     [self.navigationController pushViewController:detailViewController animated:YES];
 }
 

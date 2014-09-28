@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "POProjectController.h"
 
 @interface POProjectDetailViewController : UIViewController
+
+- (void)updateWithProject:(POProject *)project;
 
 @end
