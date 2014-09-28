@@ -8,13 +8,16 @@
 
 #import "POProjectDetailViewController.h"
 #import <MessageUI/MessageUI.h>
+#import "PODetailTableViewDataSource.h"
 
 #define margin 15.0
 
-@interface POProjectDetailViewController () <MFMailComposeViewControllerDelegate>
+@interface POProjectDetailViewController () <MFMailComposeViewControllerDelegate, UITextFieldDelegate>
 
 @property (nonatomic, strong) UITextField *titleField;
 @property (nonatomic, strong) POProject *project;
+@property (nonatomic, strong) PODetailTableViewDataSource *dataSource;
+@property (nonatomic, strong) UITableView *tableView;
 
 @end
 
@@ -24,6 +27,8 @@
     self = [super init];
     if (self) {
         self.titleField = [UITextField new];
+        self.tableView = [UITableView new];
+        self.dataSource = [PODetailTableViewDataSource new];
     }
     return self;
 }
@@ -36,9 +41,14 @@
     self.titleField.frame = CGRectMake(margin, margin, self.view.bounds.size.width - (margin * 2), 30);
     self.titleField.placeholder = @"Project Title";
     self.titleField.borderStyle = UITextBorderStyleRoundedRect;
+    self.titleField.delegate = self;
     [self.view addSubview:self.titleField];
     [self.titleField addTarget:self action:@selector(saveProject) forControlEvents:UIControlEventEditingChanged];
     
+    self.tableView.frame = CGRectMake(0, 100, self.view.frame.size.width, 300);
+//    self.tableView.dataSource = self.dataSource;
+    [self.view addSubview:self.tableView];
+
     UIToolbar *toolbar = [UIToolbar new];
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addWorkPeriod)];
     UIBarButtonItem *clockInButton = [[UIBarButtonItem alloc] initWithTitle:@"Clock In" style:UIBarButtonItemStylePlain target:self action:@selector(clockIn)];
@@ -98,6 +108,11 @@
 
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
     [controller dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
 }
 
 - (CGFloat)navAndStatusBarHeight {
