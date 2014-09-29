@@ -40,6 +40,7 @@
     [mutableWorkPeriods addObject:workPeriod];
     self.currentWorkPeriod = workPeriod;
     project.workPeriods = mutableWorkPeriods;
+    [self synchronize];
 }
 
 - (void)endCurrentWorkPeriod:(POProject *)project {
@@ -52,6 +53,7 @@
     project.workPeriods = mutableWorkPeriods;
     project.timeSpent += [self.currentWorkPeriod.endTime timeIntervalSinceDate:self.currentWorkPeriod.startTime] / 60 / 60;
     self.currentWorkPeriod = nil;
+    [self synchronize];
 }
 
 - (void)addProject:(POProject *)project {
