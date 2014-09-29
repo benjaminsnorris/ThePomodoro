@@ -11,10 +11,12 @@
 #import "PODetailTableViewDataSource.h"
 
 #define margin 15.0
+#define titleHeight 30.0
 
 @interface POProjectDetailViewController () <MFMailComposeViewControllerDelegate, UITextFieldDelegate>
 
 @property (nonatomic, strong) UITextField *titleField;
+@property (nonatomic, strong) UILabel *timeLabel;
 @property (nonatomic, strong) POProject *project;
 @property (nonatomic, strong) PODetailTableViewDataSource *dataSource;
 @property (nonatomic, strong) UITableView *tableView;
@@ -38,17 +40,23 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.titleField.frame = CGRectMake(margin, margin, self.view.bounds.size.width - (margin * 2), 30);
+    CGFloat top = margin;
+    
+    self.titleField.frame = CGRectMake(margin, top, self.view.bounds.size.width - (margin * 2), titleHeight);
     self.titleField.placeholder = @"Project Title";
     self.titleField.borderStyle = UITextBorderStyleRoundedRect;
     self.titleField.delegate = self;
     [self.view addSubview:self.titleField];
     [self.titleField addTarget:self action:@selector(saveProject) forControlEvents:UIControlEventEditingChanged];
+    top += titleHeight + margin;
     
-    self.tableView.frame = CGRectMake(0, 100, self.view.frame.size.width, 300);
-//    self.tableView.dataSource = self.dataSource;
-    [self.view addSubview:self.tableView];
-
+    self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(margin, top, self.view.bounds.size.width - (margin * 2), titleHeight)];
+    self.timeLabel.text = [NSString stringWithFormat:@"Time spent: %ld", (long)self.project.timeSpent];
+    self.timeLabel.font = [UIFont systemFontOfSize:24];
+    self.timeLabel.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:self.timeLabel];
+    top += titleHeight + margin;
+    
     UIToolbar *toolbar = [UIToolbar new];
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addWorkPeriod)];
     UIBarButtonItem *clockInButton = [[UIBarButtonItem alloc] initWithTitle:@"Clock In" style:UIBarButtonItemStylePlain target:self action:@selector(clockIn)];
@@ -61,6 +69,10 @@
     [toolbar setItems:@[addButton, spaceItem, clockInButton, spaceItem, clockOutButton, spaceItem, reportButton]];
     toolbar.frame = CGRectMake(0, self.view.bounds.size.height - self.navAndStatusBarHeight - toolbarSize.height - self.tabBarController.tabBar.frame.size.height, toolbarSize.width, toolbarSize.height);
     [self.view addSubview:toolbar];
+    
+    self.tableView.frame = CGRectMake(0, top, self.view.bounds.size.width, self.view.bounds.size.height - top - self.tabBarController.tabBar.frame.size.height - toolbarSize.height - self.navAndStatusBarHeight);
+    self.tableView.dataSource = self.dataSource;
+    [self.view addSubview:self.tableView];
 }
 
 - (void)saveProject {
