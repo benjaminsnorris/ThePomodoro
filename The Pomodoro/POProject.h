@@ -11,7 +11,7 @@
 @interface POProject : NSObject
 
 @property (nonatomic, strong) NSString *title;
-@property (nonatomic, assign) NSInteger timeSpent;
+@property (nonatomic, assign) double timeSpent;
 @property (nonatomic, strong) NSArray *workPeriods;
 
 - (NSDictionary *)projectDictionary;

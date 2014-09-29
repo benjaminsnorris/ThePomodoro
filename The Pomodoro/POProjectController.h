@@ -18,5 +18,7 @@
 - (void)addProject:(POProject *)project;
 - (void)removeProject:(POProject *)project;
 - (void)replaceProject:(POProject *)oldProject withProject:(POProject *)newProject;
+- (void)startNewWorkPeriod:(POProject *)project;
+- (void)endCurrentWorkPeriod:(POProject *)project;
 
 @end

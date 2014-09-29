@@ -20,6 +20,7 @@
 @property (nonatomic, strong) POProject *project;
 @property (nonatomic, strong) PODetailTableViewDataSource *dataSource;
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, assign) NSInteger currentWorkPeriod;
 
 @end
 
@@ -39,6 +40,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
+    self.currentWorkPeriod = -1;
     
     CGFloat top = margin;
     
@@ -51,7 +53,7 @@
     top += titleHeight + margin;
     
     self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(margin, top, self.view.bounds.size.width - (margin * 2), titleHeight)];
-    self.timeLabel.text = [NSString stringWithFormat:@"Time spent: %ld", (long)self.project.timeSpent];
+    self.timeLabel.text = [NSString stringWithFormat:@"Time spent: %0.1f", self.project.timeSpent];
     self.timeLabel.font = [UIFont systemFontOfSize:24];
     self.timeLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:self.timeLabel];
@@ -71,6 +73,7 @@
     [self.view addSubview:toolbar];
     
     self.tableView.frame = CGRectMake(0, top, self.view.bounds.size.width, self.view.bounds.size.height - top - self.tabBarController.tabBar.frame.size.height - toolbarSize.height - self.navAndStatusBarHeight);
+    self.dataSource.project = self.project;
     self.tableView.dataSource = self.dataSource;
     [self.view addSubview:self.tableView];
 }
@@ -100,11 +103,14 @@
 }
 
 - (void)clockIn {
-    
+    [[POProjectController sharedInstance] startNewWorkPeriod:self.project];
+    [self.tableView reloadData];
 }
 
 - (void)clockOut {
-    
+    [[POProjectController sharedInstance] endCurrentWorkPeriod:self.project];
+    [self.tableView reloadData];
+    self.timeLabel.text = [NSString stringWithFormat:@"Time spent: %0.1f", self.project.timeSpent];
 }
 
 - (void)sendReport {

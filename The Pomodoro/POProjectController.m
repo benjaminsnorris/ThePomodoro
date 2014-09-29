@@ -7,12 +7,14 @@
 //
 
 #import "POProjectController.h"
+#import "POWorkPeriod.h"
 
 #define projectListKey @"projects"
 
 @interface POProjectController()
 
 @property (nonatomic, strong) NSArray *projects;
+@property (nonatomic, strong) POWorkPeriod *currentWorkPeriod;
 
 @end
 
@@ -26,6 +28,30 @@
         [sharedInstance loadFromDefaults];
     });
     return sharedInstance;
+}
+
+- (void)startNewWorkPeriod:(POProject *)project {
+    if (!project) {
+        return;
+    }
+    NSMutableArray *mutableWorkPeriods = [[NSMutableArray alloc] initWithArray:project.workPeriods.mutableCopy];
+    POWorkPeriod *workPeriod = [POWorkPeriod new];
+    workPeriod.startTime = [NSDate date];
+    [mutableWorkPeriods addObject:workPeriod];
+    self.currentWorkPeriod = workPeriod;
+    project.workPeriods = mutableWorkPeriods;
+}
+
+- (void)endCurrentWorkPeriod:(POProject *)project {
+    if (!project) {
+        return;
+    }
+    NSMutableArray *mutableWorkPeriods = [[NSMutableArray alloc] initWithArray:project.workPeriods.mutableCopy];
+    self.currentWorkPeriod.endTime = [NSDate date];
+    mutableWorkPeriods[[mutableWorkPeriods indexOfObject:self.currentWorkPeriod]] = self.currentWorkPeriod;
+    project.workPeriods = mutableWorkPeriods;
+    project.timeSpent += [self.currentWorkPeriod.endTime timeIntervalSinceDate:self.currentWorkPeriod.startTime] / 60 / 60;
+    self.currentWorkPeriod = nil;
 }
 
 - (void)addProject:(POProject *)project {

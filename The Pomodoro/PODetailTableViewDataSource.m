@@ -23,10 +23,24 @@
     }
     
     POWorkPeriod *workPeriod = self.project.workPeriods[indexPath.row];
-    
-    cell.textLabel.text = [NSString stringWithFormat:@"Start: %@ End: %@", workPeriod.startTime, workPeriod.endTime];
+    NSString *startTime = @"";
+    NSString *endTime = @"";
+    if (workPeriod.startTime) {
+        startTime = [NSString stringWithFormat:@"%@", [self formatDate:workPeriod.startTime]];
+    }
+    if (workPeriod.endTime) {
+        endTime = [NSString stringWithFormat:@"%@", [self formatDate:workPeriod.endTime]];
+    }
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ - %@", startTime, endTime];
     
     return cell;
+}
+
+- (NSString *)formatDate:(NSDate *) date{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateStyle:NSDateFormatterShortStyle];
+    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+    return [dateFormatter stringFromDate:date];
 }
 
 @end
