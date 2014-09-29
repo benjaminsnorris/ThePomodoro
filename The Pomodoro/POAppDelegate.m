@@ -54,6 +54,9 @@
     [[UINavigationBar appearance] setBarTintColor:[UIColor redColor]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: [UIFont fontWithName:@"Avenir Next" size:20]}];
     tabBarController.tabBar.tintColor = [UIColor redColor];
+    UIView *selectedView = [UIView new];
+    selectedView.backgroundColor = [UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:0.2];
+    [[UITableViewCell appearance] setSelectedBackgroundView:selectedView];
     
     self.window.rootViewController = tabBarController;
     
