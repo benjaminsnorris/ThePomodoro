@@ -7,7 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "POProjectController.h"
 
 @interface PODetailTableViewDataSource : NSObject <UITableViewDataSource>
+
+@property (nonatomic, strong) POProject *project;
 
 @end

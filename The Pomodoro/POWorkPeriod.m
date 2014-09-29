@@ -10,4 +10,15 @@
 
 @implementation POWorkPeriod
 
+- (id)init {
+    return self;
+}
+
+- (id)initWithStartTime:(NSDate *)startTime {
+    if (startTime) {
+        self.startTime = startTime;
+    }
+    return self;
+}
+
 @end

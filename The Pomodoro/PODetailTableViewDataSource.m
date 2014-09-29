@@ -7,11 +7,12 @@
 //
 
 #import "PODetailTableViewDataSource.h"
+#import "POWorkPeriod.h"
 
 @implementation PODetailTableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 15;
+    return self.project.workPeriods.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -21,7 +22,9 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
     }
     
-    cell.textLabel.text = @"Testing";
+    POWorkPeriod *workPeriod = self.project.workPeriods[indexPath.row];
+    
+    cell.textLabel.text = [NSString stringWithFormat:@"Start: %@ End: %@", workPeriod.startTime, workPeriod.endTime];
     
     return cell;
 }
