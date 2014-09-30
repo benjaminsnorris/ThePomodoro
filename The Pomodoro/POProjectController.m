@@ -96,7 +96,7 @@
         return;
     }
     
-    NSMutableArray *mutableWorkPeriods = project.workPeriods.mutableCopy;
+    NSMutableArray *mutableWorkPeriods = [NSMutableArray arrayWithArray:project.workPeriods];
     [mutableWorkPeriods addObject:workPeriod];
     project.workPeriods = mutableWorkPeriods;
     project.timeSpent += [workPeriod.endTime timeIntervalSinceDate:workPeriod.startTime] / 60 / 60;
