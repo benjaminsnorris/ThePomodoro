@@ -7,6 +7,7 @@
 //
 
 #import "POProject.h"
+#import "POWorkPeriod.h"
 
 #define titleKey @"title"
 #define timeSpentKey @"timeSpent"
@@ -19,7 +20,13 @@
     NSMutableDictionary *mutableDictionary = [NSMutableDictionary new];
     if (self.title) [mutableDictionary setValue:self.title forKey:titleKey];
     [mutableDictionary setValue:@(self.timeSpent) forKey:timeSpentKey];
-    if (self.workPeriods) [mutableDictionary setValue:self.workPeriods forKey:workPeriodsKey];
+    if (self.workPeriods) {
+        NSMutableArray *mutableWorkPeriods = [NSMutableArray new];
+        for (POWorkPeriod *workPeriod in self.workPeriods) {
+            [mutableWorkPeriods addObject:[workPeriod workPeriodDictionary]];
+        }
+        [mutableDictionary setValue:mutableWorkPeriods forKey:workPeriodsKey];
+    }
     
     return mutableDictionary;
 }
@@ -28,7 +35,12 @@
     
     self.title = [dictionary objectForKey:titleKey];
     self.timeSpent = [[dictionary objectForKey:timeSpentKey] doubleValue];
-    self.workPeriods = [dictionary objectForKey:workPeriodsKey];
+    NSMutableArray *mutableWorkPeriods = [NSMutableArray new];
+    NSArray *workPeriodsFromDictionary = [dictionary objectForKey:workPeriodsKey];
+    for (NSDictionary *workPeriodDictionary in workPeriodsFromDictionary) {
+        [mutableWorkPeriods addObject:[[POWorkPeriod alloc] initWithDictionary:workPeriodDictionary]];
+    }
+    self.workPeriods = mutableWorkPeriods;
     
     return self;
 }

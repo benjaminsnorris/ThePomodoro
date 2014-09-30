@@ -13,4 +13,7 @@
 @property (nonatomic, strong) NSDate *startTime;
 @property (nonatomic, strong) NSDate *endTime;
 
+- (NSDictionary *)workPeriodDictionary;
+- (id)initWithDictionary: (NSDictionary *)dictionary;
+
 @end
