@@ -12,6 +12,7 @@
 
 #define margin 15.0
 #define titleHeight 30.0
+#define labelHeight 20.0
 
 @interface POProjectDetailViewController () <MFMailComposeViewControllerDelegate, UITextFieldDelegate>
 
@@ -21,6 +22,8 @@
 @property (nonatomic, strong) PODetailTableViewDataSource *dataSource;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, assign) NSInteger currentWorkPeriod;
+@property (nonatomic, strong) UIDatePicker *startTimePicker;
+@property (nonatomic, strong) UIDatePicker *endTimePicker;
 
 @end
 
@@ -108,6 +111,28 @@
     addWorkPeriodViewController.navigationItem.leftBarButtonItem = cancelButton;
     addWorkPeriodViewController.navigationItem.rightBarButtonItem = saveButton;
     [addWorkPeriodNavController.navigationBar setTintColor:[UIColor whiteColor]];
+    
+    CGFloat top = margin + self.navAndStatusBarHeight;
+    UILabel *startTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(margin, top, self.view.frame.size.width - (margin * 2), labelHeight)];
+    startTimeLabel.text = @"Start Time";
+    startTimeLabel.font = [UIFont boldSystemFontOfSize:17];
+    [addWorkPeriodViewController.view addSubview:startTimeLabel];
+    top += labelHeight;
+    
+    self.startTimePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, top, 0, 0)];
+    [addWorkPeriodViewController.view addSubview:self.startTimePicker];
+    top += self.startTimePicker.frame.size.height + margin;
+    
+    UILabel *endTimeLabel = [[UILabel alloc] initWithFrame:CGRectMake(margin, top, self.view.frame.size.width - (margin * 2), labelHeight)];
+    endTimeLabel.text = @"End Time";
+    endTimeLabel.font = [UIFont boldSystemFontOfSize:17];
+    [addWorkPeriodViewController.view addSubview:endTimeLabel];
+    top += labelHeight;
+
+    self.endTimePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, top, 0, 0)];
+    [addWorkPeriodViewController.view addSubview:self.endTimePicker];
+    top += self.endTimePicker.frame.size.height + margin;
+    
     [self presentViewController:addWorkPeriodNavController animated:YES completion:nil];
 }
 
