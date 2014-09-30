@@ -48,6 +48,9 @@
     
     CGFloat top = margin;
     
+    self.dataSource.project = self.project;
+    self.tableView.dataSource = self.dataSource;
+    
     self.titleField.frame = CGRectMake(margin, top, self.view.bounds.size.width - (margin * 2), titleHeight);
     self.titleField.placeholder = @"Project Title";
     self.titleField.borderStyle = UITextBorderStyleRoundedRect;
@@ -57,7 +60,7 @@
     top += titleHeight + margin;
     
     self.timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(margin, top, self.view.bounds.size.width - (margin * 2), titleHeight)];
-    self.timeLabel.text = [NSString stringWithFormat:@"Time spent: %0.1f", self.project.timeSpent];
+    [self updateTimeSpentLabel];
     self.timeLabel.font = [UIFont systemFontOfSize:24];
     self.timeLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:self.timeLabel];
@@ -77,8 +80,6 @@
     [self.view addSubview:toolbar];
     
     self.tableView.frame = CGRectMake(0, top, self.view.bounds.size.width, self.view.bounds.size.height - top - self.tabBarController.tabBar.frame.size.height - toolbarSize.height - self.navAndStatusBarHeight);
-    self.dataSource.project = self.project;
-    self.tableView.dataSource = self.dataSource;
     [self.view addSubview:self.tableView];
 }
 
@@ -137,6 +138,10 @@
     [self presentViewController:addWorkPeriodNavController animated:YES completion:nil];
 }
 
+- (void)updateTimeSpentLabel {
+    self.timeLabel.text = [NSString stringWithFormat:@"Time spent: %0.1f hours", self.project.timeSpent];
+}
+
 - (void)cancelAddWorkPeriod {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -148,7 +153,7 @@
     [[POProjectController sharedInstance] addWorkPeriod:workPeriod toProject:self.project];
     [self dismissViewControllerAnimated:YES completion:nil];
     [self.tableView reloadData];
-    self.timeLabel.text = [NSString stringWithFormat:@"Time spent: %0.1f", self.project.timeSpent];
+    [self updateTimeSpentLabel];
 }
 
 - (void)clockIn {
@@ -159,7 +164,7 @@
 - (void)clockOut {
     [[POProjectController sharedInstance] endCurrentWorkPeriod:self.project];
     [self.tableView reloadData];
-    self.timeLabel.text = [NSString stringWithFormat:@"Time spent: %0.1f", self.project.timeSpent];
+    [self updateTimeSpentLabel];
 }
 
 - (void)sendReport {

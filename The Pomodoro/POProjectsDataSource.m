@@ -19,11 +19,12 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
     }
     
     POProject *project = [POProjectController sharedInstance].projects[indexPath.row];
     cell.textLabel.text = project.title;
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"Hours worked: %0.1f", project.timeSpent];
     
     // Appearance stuff
     [cell.textLabel setFont:[UIFont fontWithName:@"Avenir Next" size:18]];
