@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "POProject.h"
+#import "POWorkPeriod.h"
 
 @interface POProjectController : NSObject
 
@@ -20,5 +21,6 @@
 - (void)replaceProject:(POProject *)oldProject withProject:(POProject *)newProject;
 - (void)startNewWorkPeriod:(POProject *)project;
 - (void)endCurrentWorkPeriod:(POProject *)project;
+- (void)addWorkPeriod:(POWorkPeriod *)workPeriod toProject:(POProject *)project;
 
 @end

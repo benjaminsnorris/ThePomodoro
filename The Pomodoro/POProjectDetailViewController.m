@@ -9,6 +9,7 @@
 #import "POProjectDetailViewController.h"
 #import <MessageUI/MessageUI.h>
 #import "PODetailTableViewDataSource.h"
+#import "POWorkPeriod.h"
 
 #define margin 15.0
 #define titleHeight 30.0
@@ -141,7 +142,13 @@
 }
 
 - (void)saveNewWorkPeriod {
+    POWorkPeriod *workPeriod = [POWorkPeriod new];
+    workPeriod.startTime = self.startTimePicker.date;
+    workPeriod.endTime = self.endTimePicker.date;
+    [[POProjectController sharedInstance] addWorkPeriod:workPeriod toProject:self.project];
     [self dismissViewControllerAnimated:YES completion:nil];
+    [self.tableView reloadData];
+    self.timeLabel.text = [NSString stringWithFormat:@"Time spent: %0.1f", self.project.timeSpent];
 }
 
 - (void)clockIn {

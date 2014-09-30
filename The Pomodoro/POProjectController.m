@@ -7,7 +7,6 @@
 //
 
 #import "POProjectController.h"
-#import "POWorkPeriod.h"
 
 #define projectListKey @"projects"
 
@@ -89,6 +88,18 @@
         [mutableProjects replaceObjectAtIndex:[mutableProjects indexOfObject:oldProject] withObject:newProject];
     }
     self.projects = mutableProjects;
+    [self synchronize];
+}
+
+- (void)addWorkPeriod:(POWorkPeriod *)workPeriod toProject:(POProject *)project{
+    if (!workPeriod) {
+        return;
+    }
+    
+    NSMutableArray *mutableWorkPeriods = project.workPeriods.mutableCopy;
+    [mutableWorkPeriods addObject:workPeriod];
+    project.workPeriods = mutableWorkPeriods;
+    project.timeSpent += [workPeriod.endTime timeIntervalSinceDate:workPeriod.startTime] / 60 / 60;
     [self synchronize];
 }
 
