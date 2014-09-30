@@ -99,7 +99,24 @@
 }
 
 - (void)addWorkPeriod {
-    
+    UIViewController *addWorkPeriodViewController = [UIViewController new];
+    UINavigationController *addWorkPeriodNavController = [[UINavigationController alloc] initWithRootViewController:addWorkPeriodViewController];
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelAddWorkPeriod)];
+    UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveNewWorkPeriod)];
+    addWorkPeriodNavController.view.backgroundColor = [UIColor whiteColor];
+    addWorkPeriodViewController.title = @"Add Work Period";
+    addWorkPeriodViewController.navigationItem.leftBarButtonItem = cancelButton;
+    addWorkPeriodViewController.navigationItem.rightBarButtonItem = saveButton;
+    [addWorkPeriodNavController.navigationBar setTintColor:[UIColor whiteColor]];
+    [self presentViewController:addWorkPeriodNavController animated:YES completion:nil];
+}
+
+- (void)cancelAddWorkPeriod {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)saveNewWorkPeriod {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)clockIn {
@@ -118,6 +135,7 @@
     mailController.mailComposeDelegate = self;
     [mailController setSubject:[NSString stringWithFormat:@"Report for project: %@",self.titleField.text]];
     [mailController setMessageBody:@"This is a test body." isHTML:NO];
+    [mailController.navigationBar setTintColor:[UIColor whiteColor]];
     
     if ([MFMailComposeViewController canSendMail]) {
         [self presentViewController:mailController animated:YES completion:nil];
